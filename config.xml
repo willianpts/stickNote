@@ -2,12 +2,12 @@
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id          = "github.willianpts.teste"
-	version 	= "0.1.0">
+	version 	= "0.2.0">
     
     <preference name="phonegap-version" value="2.7.0" />
 
-	<name>app mobile - camera</name>
-	<description>Aplicação utilizando a camera do aparelho</description>
+	<name>notes</name>
+	<description>Aplicativo para gerenciamento de notas</description>
 
 	<author href="https://github.com/willianpts"
 		email="willianpts@gmail.com">
