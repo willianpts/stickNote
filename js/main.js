@@ -79,11 +79,6 @@ $form.on('click', '.cancel', function(e){
     e.preventDefault();
     display();
 });
-//
-//$('body').on('tap', '.no-state', function(){
-//    $(this).removeClass($.mobile.activeBtnClass);
-//    console.log($.mobile.activeBtnClass)
-//})
 
 $(resultDiv).on('click.delete', 'a.delete', function(e){
     e.preventDefault();
@@ -112,10 +107,6 @@ $('#viewNotes').on('click', function(e){
     display();
 });
 
-var tooltipSetup = function(){
-//    $('a.delete', resultDiv).tooltip();
-};
-
 var display = function(){
     var showMe = $('#noResults');
     
@@ -123,10 +114,8 @@ var display = function(){
         $('#noResults').hide();
         showMe = $(resultDiv);
     }
-    console.log(resultDiv)
-    showMe.removeClass('hidden').hide().show();
+    showMe.removeClass('hidden').hide().fadeIn(200);
     $form.closest('div').hide();
-    console.log(resultDiv)
 };
 
 var setup = function() {
