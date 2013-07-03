@@ -2,11 +2,32 @@ var doc = document,
     body = doc.body,
     _qs = doc.querySelector.bind(doc),
     cache = {},
-    noop = function(){}
+    noop = function(){},
+    pictureSource,
+    destinationType
 ;
 
+
+function carregaFoto() {
+    var opt = {
+        quality: 50,
+        destinationType: destinationType.FILE_URI,
+        sourceType: pictureSource.PHOTOLIBRARY
+    };
+    
+    function render(p){
+        console.log(p);
+    }
+    
+    navigator.camera.getPicture(render, onFail, opt);
+}
+
 document.addEventListener("deviceready", function(){
-   navigator.notification.alert("Hello");
+    pictureSource = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
+    
+    console.clear();
+    alert('readyyyy');
 }, false);
 
 var cfg = {
@@ -145,8 +166,6 @@ var showItems = function() {
     };
     
     var displayResults = function(tx, res){
-        console.log(res.rows.length)
-        
         if (!res.rows.length){
             display();
             return;
@@ -173,6 +192,16 @@ var showItems = function() {
     
     db.transaction(queryItems);
 };
+
+
+$('#flip-1').on('change', function(){
+    alert(this.value);
+    
+    if (this.value == 'on'){
+        carregaFoto();
+        console.log('chama a camera')
+    }
+});
 
 setup();
 showItems();
