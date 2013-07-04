@@ -7,8 +7,11 @@ var doc = document,
     destinationType
 ;
 
+function onFail(e){
+    console.log(e);
+}
 
-function carregaFoto() {
+function carregaFoto(callback) {
     var opt = {
         quality: 50,
         destinationType: destinationType.FILE_URI,
@@ -16,19 +19,12 @@ function carregaFoto() {
     };
     
     function render(p){
-        console.log(p);
+        $('#fima').attr('src', p);
+        callback(p);
     }
     
     navigator.camera.getPicture(render, onFail, opt);
 }
-
-document.addEventListener("deviceready", function(){
-    pictureSource = navigator.camera.PictureSourceType;
-    destinationType = navigator.camera.DestinationType;
-    
-    console.clear();
-    alert('readyyyy');
-}, false);
 
 var cfg = {
     dbName: 'gapdb',
@@ -45,10 +41,10 @@ var logError = function(err){
 };
 
 var addNota = function(data, error, done){
-    var insertMe = [data.title, data.content];
+    var insertMe = [data.title, data.content, data.image];
     
     db.transaction(function(tx){
-        var query = 'INSERT INTO notas ("titulo", "conteudo") VALUES(?, ?)';
+        var query = 'INSERT INTO notas ("titulo", "conteudo", "image") VALUES(?, ?, ?)';
         tx.executeSql(query, insertMe, noop, error);
     }, error, done);
 };
@@ -87,7 +83,12 @@ $form.on('submit', function(e) {
         clearError();
     }
     
-    var data = {'title': inputs[0].value, 'content': inputs[1].value};
+    var data = {
+        'title': inputs[0].value,
+        'content': inputs[1].value,
+        'image': $form.find('[name=imgurl]').val()
+    };
+    console.log(data);
     
     addNota(data, logError, function(){
         showItems();
@@ -145,8 +146,10 @@ var setup = function() {
     };
     
     var createTables = function(tx){
-        var query = "CREATE TABLE IF NOT EXISTS notas (id INTEGER PRIMARY KEY AUTOINCREMENT, titulo TEXT, conteudo TEXT)";
+        var query = "CREATE TABLE IF NOT EXISTS notas (id INTEGER PRIMARY KEY AUTOINCREMENT, titulo TEXT, conteudo TEXT, image TEXT)";
         tx.executeSql(query, [], noop, logError);
+//        var query2 = "DROP TABLE notas";
+//        tx.executeSql(query2, [], noop, logError);
     };
     
     db.transaction(createTables);
@@ -181,6 +184,7 @@ var showItems = function() {
             out = f.innerHTML.replace(/#titulo#/, nota.titulo)
                     .replace(/#conteudo#/, nota.conteudo)
                     .replace(/#id#/g, nota.id)
+                    .replace(/#src#/g, nota.image)
             ;
             
             notas.push(out);
@@ -193,15 +197,18 @@ var showItems = function() {
     db.transaction(queryItems);
 };
 
-
-$('#flip-1').on('change', function(){
-    alert(this.value);
+$('#aaf').click(function(e){
+    e.preventDefault();
     
-    if (this.value == 'on'){
-        carregaFoto();
-        console.log('chama a camera')
-    }
+    carregaFoto(function(uri){
+        $form.find('[name=imgurl]').val(uri);
+    });
 });
+
+document.addEventListener("deviceready", function(){
+    pictureSource = navigator.camera.PictureSourceType;
+    destinationType = navigator.camera.DestinationType;
+}, false);
 
 setup();
 showItems();

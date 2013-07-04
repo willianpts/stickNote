@@ -2,12 +2,12 @@
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id          = "github.willianpts.teste"
-	version 	= "0.2.1">
+	version 	= "0.2.0">
     
     <preference name="phonegap-version" value="2.7.0" />
 
 	<name>notes</name>
-	<description>Aplicativo para gerenciamento de notas</description>
+	<description>Aplictivo para gerenciamento de notas</description>
 
 	<author href="https://github.com/willianpts"
 		email="willianpts@gmail.com">
@@ -23,4 +23,13 @@
 
 	<icon src="splash.png" gap:role="default" />
     <gap:splash src="splash.png"/>
+    
+    <feature name="http://api.phonegap.com/1.0/battery"/>
+    <feature name="http://api.phonegap.com/1.0/camera"/>
+    <feature name="http://api.phonegap.com/1.0/contacts"/>
+    <feature name="http://api.phonegap.com/1.0/file"/>
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <feature name="http://api.phonegap.com/1.0/media"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    <feature name="http://api.phonegap.com/1.0/notification"/>
 </widget>
