@@ -6,13 +6,8 @@
     
     <preference name="phonegap-version" value="2.7.0" />
 
-	<name>notes</name>
+	<name>stickNote</name>
 	<description>Aplictivo para gerenciamento de notas</description>
-
-	<author href="https://github.com/willianpts"
-		email="willianpts@gmail.com">
-		Willian
-	</author>
 
 	<gap:platforms>
             <gap:platform name="android" minVersion="2.1" />
